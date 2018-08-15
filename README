@@ -1,0 +1,7 @@
+Automated Chess players for chess.com.
+
+Recommended crontab settings:
+
+*/18 * * * * cd /home/kyle/Code/shell_script/chess_online_bot/WatErbeverage; bash ./chess_move.sh >> /tmp/WatErbeverage.txt
+*/18 * * * * cd /home/kyle/Code/shell_script/chess_online_bot/Jaime_Lannister69; bash ./chess_move.sh >> /tmp/Jaime_Lannister69.txt
+*/18 * * * * cd /home/kyle/Code/shell_script/chess_online_bot/danmusil1; bash ./chess_move.sh >> /tmp/danmusil1.txt
