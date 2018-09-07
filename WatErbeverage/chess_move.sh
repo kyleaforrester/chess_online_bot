@@ -10,16 +10,16 @@ game_numbers=`eval $curl_query | grep -Eo "\"dailyGamesStatus\":\[[\"0-9\,]*" | 
 for x in $game_numbers
 do
   random="$RANDOM"
-  let "random %= 10"
+  let "random %= 1"
   if [ "$random" -gt 0 ]; then
     echo "Random = $random .  Skipping game $x for now"
     continue
   fi
 
-  curl_query="curl 'https://www.chess.com/echess/game?id=$x' -H 'accept-language: en-US,en;q=0.8' -H 'upgrade-insecure-requests: 1' -H 'user-agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.82 Safari/537.36' -H 'accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8' -H 'cache-control: max-age=0' -H 'authority: www.chess.com' -H 'cookie: sm_dapi_session=1; H1:f79607ba4d15b54f93f98a3ef8710=1; __gads=ID=39696f01de1e0b5e:T=1478318872:S=ALNI_MbPjfvZoyLrXTK6jwt2dH02RgC6SA; CHESSCOM_REMEMBERME=Q2hlc3NcV2ViQnVuZGxlXE1vZGVsXFVzZXJcU2Vzc2lvblVzZXI6VjJGMFJYSmlaWFpsY21GblpRPT06MTUwOTg1NTUxOTo1NjA2NTgwMDNlZWQ2Mzk4NDA5NzdkOTM1MzhlZDYwNWQ3YTAxODRkNjBkYmVjZGM3NGZjN2I1MWRkYzNhNTY5; __qca=P0-198180529-1478747058035; cdmblk2=0:0:0:0:0:0:0:0:0:0:0:0:0,0:0:0:0:0.2:0:0.45:0:0:0:0.83:0:0,0:0:0:0:0:0:0:0:0:0:0:0:0,0:0:0:0:0:0:0:0:0:0:0:0:0,0:0:0:0:0:0:0:0:0:0:0:0:0,0:0:0:0:0:0:0:0:0:0:0:0:0; _ga=GA1.3.961195019.1478318854; app=v2%2B7; cdmblk=0:0:0:0:0:0:0:0:0:0:0:0:0,0:0:0:0.2:0:0:0:0:0:0:0:0:0,0:0:0:0:0:0:0.18:0:0:0:0.61:0:0,0:0:0:0:0:0:0:0:0:0:0.23:0:0,0:0:0:0:0:0:0:0:0:0:0:0:0,0:0:0:0:0:0:0:0:0:0:0:0:0; cdmtlk=470:748:2332:4319:1168:0:1099:1818:6962:0:1808:0:0; cdmgeo=us; cdmbaserate=2.1; cdmbaseraterow=1.1; cdmint=0; __atuvc=1%7C44%2C0%7C45%2C1%7C46; PHPSESSID=$session_id; OX_plg=swf|shk|pm; chess_mw_c16=0; _gat=1; app=v2; _ga=GA1.2.961195019.1478318854; OX_sd=2' -H 'if-modified-since: Fri, 18 Nov 2016 01:45:14 GMT' -H 'referer: https://www.chess.com/echess/myhome'"
+  curl_query="curl 'https://www.chess.com/callback/user/daily/games?showLearningTiles=1&limit=50' -H 'Host: www.chess.com' -H 'User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0' -H 'Accept: application/json, text/plain, */*' -H 'Accept-Language: en-US,en;q=0.5' --compressed -H 'Referer: https://www.chess.com/daily' -H 'Cookie: _ga=GA1.2.1702818451.1494885759; __cfduid=d39fb4f3e0a5a6a055795f1513050b24b1536302546; __gads=ID=6fc58e1676cf65b8:T=1514418725:S=ALNI_MZdXR-VRHKcRpYVEv85BoIAo393_g; visitorid=%3Adb1d%3Affff%3A136.55.22.3; amplitude_id_5cc41a1e56d0ee35d4c85d1d4225d2d1chess.com=eyJkZXZpY2VJZCI6ImU0MzllZDMyLTMyMmEtNGM5My1hODUzLTQ4Y2NjMzVhOGQ2N1IiLCJ1c2VySWQiOiIzMzQwMTg3MyIsIm9wdE91dCI6ZmFsc2UsInNlc3Npb25JZCI6MTUzNjMwMTU5ODMyNiwibGFzdEV2ZW50VGltZSI6MTUzNjMwMjQ1OTMzMCwiZXZlbnRJZCI6MTMsImlkZW50aWZ5SWQiOjE5LCJzZXF1ZW5jZU51bWJlciI6MzJ9; asset_push=20180906131901%3Bf6186%2Cabff9%2Cbe386%2Ca2ab9%2Cbeff9%2Ce5061; PHPSESSID=$session_id; __vrz=1.9.2' -H 'Connection: keep-alive'"
 
   query_response=`eval $curl_query`
-  fen=`echo $query_response | grep -ao "<div><strong>FEN:</strong> <input type=\"text\" name=\"textfield\" id=\"textfield\" style=\"font-size: 0.65em; width: 74px;\" value=\"[a-zA-Z 0-9/\-]*\"" | grep -o "value=\"[a-zA-Z 0-9/\-]*\"" | grep -o "\"[a-zA-Z 0-9/\-]*\"" | grep -o "[a-zA-Z 0-9/\-]*"` 
+  fen=`echo $query_response | grep -Eo "\"id\":[0-9]*,\"fen\":\"[a-zA-Z0-9\/]* [wb]* [kqKQ\-]* [a-z0-9\-]* [0-9]* [0-9]*" | sort | uniq | grep $x | grep -Eo "[a-zA-Z0-9\/]* [wb]* [kqKQ\-]* [a-z0-9\-]* [0-9]* [0-9]*"`
   depth_opts=("1" "2" "3" "4" "5" "6")
   depth=${depth_opts[$RANDOM % ${#depth_opts[@]}]}
   depth=18
