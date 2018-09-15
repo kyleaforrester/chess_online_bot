@@ -10,7 +10,7 @@ game_numbers=`eval $curl_query | grep -Eo "\"dailyGamesStatus\":\[[\"0-9\,]*" | 
 for x in $game_numbers
 do
   random="$RANDOM"
-  let "random %= 1"
+  let "random %= 10"
   if [ "$random" -gt 0 ]; then
     echo "Random = $random .  Skipping game $x for now"
     continue
