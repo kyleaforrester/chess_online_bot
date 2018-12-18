@@ -19,7 +19,7 @@ do
   curl_query="curl 'https://www.chess.com/callback/user/daily/games?showLearningTiles=1&limit=50' -H 'Host: www.chess.com' -H 'User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0' -H 'Accept: application/json, text/plain, */*' -H 'Accept-Language: en-US,en;q=0.5' --compressed -H 'Referer: https://www.chess.com/daily' -H 'Cookie: _ga=GA1.2.1702818451.1494885759; __cfduid=d39fb4f3e0a5a6a055795f1513050b24b1536302546; __gads=ID=6fc58e1676cf65b8:T=1514418725:S=ALNI_MZdXR-VRHKcRpYVEv85BoIAo393_g; visitorid=%3Adb1d%3Affff%3A136.55.22.3; amplitude_id_5cc41a1e56d0ee35d4c85d1d4225d2d1chess.com=eyJkZXZpY2VJZCI6ImU0MzllZDMyLTMyMmEtNGM5My1hODUzLTQ4Y2NjMzVhOGQ2N1IiLCJ1c2VySWQiOiIzMzQwMTg3MyIsIm9wdE91dCI6ZmFsc2UsInNlc3Npb25JZCI6MTUzNjMwMTU5ODMyNiwibGFzdEV2ZW50VGltZSI6MTUzNjMwMjQ1OTMzMCwiZXZlbnRJZCI6MTMsImlkZW50aWZ5SWQiOjE5LCJzZXF1ZW5jZU51bWJlciI6MzJ9; asset_push=20180906131901%3Bf6186%2Cabff9%2Cbe386%2Ca2ab9%2Cbeff9%2Ce5061; PHPSESSID=$session_id; __vrz=1.9.2' -H 'Connection: keep-alive'"
 
   query_response=`eval $curl_query`
-  fen=`echo $query_response | grep -Eo "\"id\":[0-9]*,\"fen\":\"[a-zA-Z0-9\/]* [wb]* [kqKQ\-]* [a-z0-9\-]* [0-9]* [0-9]*" | sort | uniq | grep $x | grep -Eo "[a-zA-Z0-9\/]* [wb]* [kqKQ\-]* [a-z0-9\-]* [0-9]* [0-9]*"`
+  fen=`echo $query_response | grep -Eo "\"id\":[0-9]*,\"fen\":\"[a-zA-Z0-9\/]* [wb]* [abcdefgABCDEFGkqKQ\-]* [a-z0-9\-]* [0-9]* [0-9]*" | sort | uniq | grep $x | grep -Eo "[a-zA-Z0-9\/]* [wb]* [abcdefgABCDEFGkqKQ\-]* [a-z0-9\-]* [0-9]* [0-9]*"`
   depth_opts=("1" "2" "3" "4" "5" "6")
   depth=${depth_opts[$RANDOM % ${#depth_opts[@]}]}
   depth=18
