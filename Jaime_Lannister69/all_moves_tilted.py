@@ -30,6 +30,7 @@ for move in board.legal_moves:
         moves.append((move, score, random.randint(-variance,variance)))
     else:
         moves.append((move, centipawns, random.randint(-variance,variance)))
+    engine.quit()
 moves = sorted(moves, key=lambda x: x[1],reverse=True)
 maximum = max(moves, key=lambda x: x[1]+x[2])
 
