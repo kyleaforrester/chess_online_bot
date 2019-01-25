@@ -22,7 +22,7 @@ do
   fen=`echo $query_response | grep -Eo "\"id\":[0-9]*,\"fen\":\"[a-zA-Z0-9\/]* [wb]* [abcdefgABCDEFGkqKQ\-]* [a-z0-9\-]* [0-9]* [0-9]*" | sort | uniq | grep $x | grep -Eo "[a-zA-Z0-9\/]* [wb]* [abcdefgABCDEFGkqKQ\-]* [a-z0-9\-]* [0-9]* [0-9]*"`
   depth_opts=("1" "2" "3" "4" "5" "6")
   depth=${depth_opts[$RANDOM % ${#depth_opts[@]}]}
-  depth=18
+  depth=2
   echo "Fen: $fen"
   if [ -z "$fen" ]; then
     echo "No FEN found for $x"
@@ -38,11 +38,9 @@ do
       fen=`python3 ./strip_castling.py "$fen"`
       echo "Stockfish has crashed.  Using stripped castling fen:"
       echo $fen
-      move=`(
-             echo "position fen $fen";
-             echo "go depth $depth";
-             sleep 6;
-           ) | /usr/games/stockfish | grep bestmove | awk '{print $2}'`
+      moves=`./all_moves_tilted.py "$fen"`
+      echo "Candidate moves:" $moves
+      move=`echo "$moves" | grep bestmove | awk '{print $2}'`
     fi
   fi
   echo "Move: $move"

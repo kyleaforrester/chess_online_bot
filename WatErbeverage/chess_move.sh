@@ -33,7 +33,7 @@ do
            echo "position fen $fen";
            echo "go depth $depth";
            sleep 6;
-         ) | /usr/games/stockfish | grep "info depth " | grep -v -e "info depth 1 " | grep -Eo "pv [a-h][a-h1-8]*" | grep -Eo "[a-h1-8]*" | sort -u`
+         ) | /usr/games/stockfish_8 | grep "info depth " | grep -v -e "info depth 1 " | grep -Eo "pv [a-h][a-h1-8]*" | grep -Eo "[a-h1-8]*" | sort -u`
     echo "Candidate moves:" $moves
     move=`echo "$moves" | shuf -n 1`
     
@@ -42,11 +42,13 @@ do
       fen=`python3 ./strip_castling.py "$fen"`
       echo "Stockfish has crashed.  Using stripped castling fen:"
       echo $fen
-      move=`(
+      moves=`(
              echo "position fen $fen";
              echo "go depth $depth";
              sleep 6;
-           ) | /usr/games/stockfish | grep bestmove | awk '{print $2}'`
+           ) | /usr/games/stockfish_8 | grep "info depth " | grep -v -e "info depth 1 " | grep -Eo "pv [a-h][a-h1-8]*" | grep -Eo "[a-h1-8]*" | sort -u`
+      echo "Candidate moves:" $moves
+      move=`echo "$moves" | shuf -n 1`
     fi
   fi
   echo "Move: $move"

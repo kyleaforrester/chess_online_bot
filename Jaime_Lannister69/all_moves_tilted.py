@@ -16,7 +16,7 @@ variance = 160 #155
 depth = 12
 for move in board.legal_moves:
     handler = chess.uci.InfoHandler()
-    engine = chess.uci.popen_engine('/usr/games/stockfish')
+    engine = chess.uci.popen_engine('/usr/games/stockfish_8')
     engine.info_handlers.append(handler)
     engine.position(board)
     engine.go(searchmoves=[move], depth=depth)
