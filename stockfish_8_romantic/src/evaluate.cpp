@@ -799,7 +799,12 @@ Value Eval::evaluate(const Position& pos) {
   // Initialize score by reading the incrementally updated scores included in
   // the position object (material + piece square tables) and the material
   // imbalance. Score is computed internally from the white point of view.
-  Score score = pos.psq_score() + ei.me->imbalance();
+  Score tmp_score_us, tmp_score_them;
+  tmp_score_us = pos.psq_score() + ei.me->imbalance();
+  int16_t eg_score = eg_value(tmp_score_us);
+  int16_t mg_score = mg_value(tmp_score_us);
+  tmp_score_us = make_score((int)(mg_score * 0.1), (int)(eg_score * 0.1));
+  Score score = tmp_score_us;
 
   // Probe the pawn hash table
   ei.pi = Pawns::probe(pos);
@@ -831,8 +836,16 @@ Value Eval::evaluate(const Position& pos) {
 
   // Evaluate kings after all other pieces because we need full attack
   // information when computing the king safety evaluation.
-  score +=  evaluate_king<WHITE, DoTrace>(pos, ei)
-          - evaluate_king<BLACK, DoTrace>(pos, ei);
+  tmp_score_us = evaluate_king<WHITE, DoTrace>(pos, ei);
+  tmp_score_them = evaluate_king<BLACK, DoTrace>(pos, ei);
+  eg_score = eg_value(tmp_score_us);
+  mg_score = mg_value(tmp_score_us);
+  tmp_score_us = make_score((int)(mg_score * 0.5), (int)(eg_score * 0.5));
+  eg_score = eg_value(tmp_score_them);
+  mg_score = mg_value(tmp_score_them);
+  tmp_score_them = make_score((int)(mg_score * 2), (int)(eg_score * 2));
+  score +=  tmp_score_us
+          - tmp_score_them;
 
   // Evaluate tactical threats, we need full attack information including king
   score +=  evaluate_threats<WHITE, DoTrace>(pos, ei)
