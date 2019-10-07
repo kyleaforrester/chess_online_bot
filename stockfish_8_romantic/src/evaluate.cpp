@@ -836,16 +836,8 @@ Value Eval::evaluate(const Position& pos) {
 
   // Evaluate kings after all other pieces because we need full attack
   // information when computing the king safety evaluation.
-  tmp_score_us = evaluate_king<WHITE, DoTrace>(pos, ei);
-  tmp_score_them = evaluate_king<BLACK, DoTrace>(pos, ei);
-  eg_score = eg_value(tmp_score_us);
-  mg_score = mg_value(tmp_score_us);
-  tmp_score_us = make_score((int)(mg_score * 0.5), (int)(eg_score * 0.5));
-  eg_score = eg_value(tmp_score_them);
-  mg_score = mg_value(tmp_score_them);
-  tmp_score_them = make_score((int)(mg_score * 2), (int)(eg_score * 2));
-  score +=  tmp_score_us
-          - tmp_score_them;
+  score += evaluate_king<WHITE, DoTrace>(pos, ei)
+         - evaluate_king<BLACK, DoTrace>(pos, ei);
 
   // Evaluate tactical threats, we need full attack information including king
   score +=  evaluate_threats<WHITE, DoTrace>(pos, ei)
