@@ -12,7 +12,7 @@ if (len(sys.argv) != 2):
 
 board = chess.Board(sys.argv[1])
 moves = []
-variance = 10 #155
+variance = 30 #155
 depth = 14
 for move in board.legal_moves:
     handler = chess.uci.InfoHandler()
