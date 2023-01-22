@@ -65,11 +65,13 @@ def encode_move(move):
 
     return TCN
 
+
 def transfer_cookies(driver_cookies):
     cookies = {}
     for c in driver.get_cookies():
         cookies[c['name']] = c['value']
     return cookies
+
 
 def get_bestmove(game):
     uci_cmd = '''position fen {}
@@ -83,6 +85,7 @@ go nodes 1\n'''.format(game[1])
     for line in iter(proc.stdout.readline, ''):
         if 'bestmove' in line:
             return line.split()[1]
+
 
 opts = FirefoxOptions()
 opts.add_argument("--headless")
@@ -99,7 +102,8 @@ elem.send_keys(Keys.RETURN)
 time.sleep(1)
 
 cookies = transfer_cookies(driver.get_cookies())
-response = requests.get('https://www.chess.com/callback/user/daily/games?limit=100', cookies=cookies)
+response = requests.get(
+    'https://www.chess.com/callback/user/daily/games?limit=100', cookies=cookies)
 games_obj = json.loads(response.text)
 
 games_fens = [(game['id'], game['fen'])
@@ -114,17 +118,22 @@ for game in games_fens:
     if (game[1] is not None):
         bestmove = get_bestmove(game)
     else:
-        bestmove = random.choice(('e2e4', 'd2d4', 'c2c4', 'g1f3', 'b1c3', 'b2b3', 'g2g3', 'f2f4', 'b2b4'))
+        bestmove = random.choice(
+            ('e2e4', 'd2d4', 'c2c4', 'g1f3', 'b1c3', 'b2b3', 'g2g3', 'f2f4', 'b2b4'))
 
     print('Game {}: bestmove: {}'.format(game, bestmove))
     encoded_move = encode_move(bestmove)
 
-    response = requests.get('https://www.chess.com/callback/daily/game/{}'.format(game[0]), cookies=cookies)
+    response = requests.get(
+        'https://www.chess.com/callback/daily/game/{}'.format(game[0]), cookies=cookies)
     games_obj = json.loads(response.text)
 
-    json_payload = {'_token': '', 'lastDate': games_obj['game']['lastDate'], 'move': encoded_move, 'plyCount': games_obj['game']['plyCount'], 'squared': 1}
-    headers = {'Referer': 'https://www.chess.com/game/daily/{}'.format(game[0]), 'Host': 'www.chess.com', 'Origin': 'https://www.chess.com', 'Alt-Used': 'www.chess.com'}
-    response = requests.post('https://www.chess.com/callback/game/{}/submit-move'.format(game[0]), json=json_payload, headers=headers, cookies=cookies)
+    json_payload = {'_token': '', 'lastDate': games_obj['game']['lastDate'],
+                    'move': encoded_move, 'plyCount': games_obj['game']['plyCount'], 'squared': 1}
+    headers = {'Referer': 'https://www.chess.com/game/daily/{}'.format(
+        game[0]), 'Host': 'www.chess.com', 'Origin': 'https://www.chess.com', 'Alt-Used': 'www.chess.com'}
+    response = requests.post('https://www.chess.com/callback/game/{}/submit-move'.format(
+        game[0]), json=json_payload, headers=headers, cookies=cookies)
 
 
 driver.close()
