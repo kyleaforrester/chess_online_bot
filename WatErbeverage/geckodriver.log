@@ -1,0 +1,93 @@
+1674420066196	geckodriver	INFO	Listening on 127.0.0.1:58129
+1674420066705	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "--headless" "--remote-debugging-port" "37383" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofile3Q7PvH"
+*** You are running in headless mode.
+[GFX1-]: glxtest: Unable to open a connection to the X server
+1674420067130	Marionette	INFO	Marionette enabled
+1674420067134	Marionette	INFO	Listening on port 41421
+WebDriver BiDi listening on ws://127.0.0.1:37383
+Read port: 41421
+1674420067367	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofile3Q7PvH/search.json.mozlz4", (void 0)))
+DevTools listening on ws://127.0.0.1:37383/devtools/browser/fa6d7d9f-bcce-4bc7-b1ed-1517ceea9cfb
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.chess.com."
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.chess.com."
+1674420069933	Marionette	INFO	Stopped listening on port 41421
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+1674420125919	geckodriver	INFO	Listening on 127.0.0.1:51459
+1674420126430	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "--headless" "--remote-debugging-port" "40189" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileHfG6RU"
+*** You are running in headless mode.
+[GFX1-]: glxtest: Unable to open a connection to the X server
+1674420126847	Marionette	INFO	Marionette enabled
+1674420126851	Marionette	INFO	Listening on port 38161
+WebDriver BiDi listening on ws://127.0.0.1:40189
+Read port: 38161
+1674420127101	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofileHfG6RU/search.json.mozlz4", (void 0)))
+DevTools listening on ws://127.0.0.1:40189/devtools/browser/f34480a4-82fe-41b3-a396-c03ac0901743
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.chess.com."
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.chess.com."
+1674420129750	Marionette	INFO	Stopped listening on port 38161
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+1674420186174	geckodriver	INFO	Listening on 127.0.0.1:52331
+1674420186682	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "--headless" "--remote-debugging-port" "49031" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileELpBLf"
+*** You are running in headless mode.
+[GFX1-]: glxtest: Unable to open a connection to the X server
+1674420187060	Marionette	INFO	Marionette enabled
+1674420187064	Marionette	INFO	Listening on port 35405
+Read port: 35405
+WebDriver BiDi listening on ws://127.0.0.1:49031
+1674420187133	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofileELpBLf/search.json.mozlz4", (void 0)))
+DevTools listening on ws://127.0.0.1:49031/devtools/browser/facdd215-9961-4b5c-b76b-249f4bfb8ac0
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.chess.com."
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.chess.com."
+1674420189897	Marionette	INFO	Stopped listening on port 35405
+1674420246325	geckodriver	INFO	Listening on 127.0.0.1:57779
+1674420246835	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "--headless" "--remote-debugging-port" "36021" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofilexcIEXT"
+*** You are running in headless mode.
+[GFX1-]: glxtest: Unable to open a connection to the X server
+1674420247246	Marionette	INFO	Marionette enabled
+1674420247250	Marionette	INFO	Listening on port 40647
+WebDriver BiDi listening on ws://127.0.0.1:36021
+Read port: 40647
+1674420247493	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofilexcIEXT/search.json.mozlz4", (void 0)))
+DevTools listening on ws://127.0.0.1:36021/devtools/browser/095167cd-0eba-4539-8c31-41f04675465b
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.chess.com."
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.chess.com."
+1674420250404	Marionette	INFO	Stopped listening on port 40647
+1674420306144	geckodriver	INFO	Listening on 127.0.0.1:53081
+1674420306654	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "--headless" "--remote-debugging-port" "54271" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileHIs5gq"
+*** You are running in headless mode.
+[GFX1-]: glxtest: Unable to open a connection to the X server
+1674420307079	Marionette	INFO	Marionette enabled
+1674420307084	Marionette	INFO	Listening on port 45067
+WebDriver BiDi listening on ws://127.0.0.1:54271
+Read port: 45067
+1674420307306	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofileHIs5gq/search.json.mozlz4", (void 0)))
+DevTools listening on ws://127.0.0.1:54271/devtools/browser/125a9715-0fb4-4dc9-bf08-27138812bdbc
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.chess.com."
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.chess.com."
+1674420309933	Marionette	INFO	Stopped listening on port 45067
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+1674420366658	geckodriver	INFO	Listening on 127.0.0.1:56231
+1674420367166	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "--headless" "--remote-debugging-port" "51613" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofile3o0rGT"
+*** You are running in headless mode.
+[GFX1-]: glxtest: Unable to open a connection to the X server
+1674420367479	Marionette	INFO	Marionette enabled
+1674420367483	Marionette	INFO	Listening on port 35097
+WebDriver BiDi listening on ws://127.0.0.1:51613
+Read port: 35097
+1674420367740	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofile3o0rGT/search.json.mozlz4", (void 0)))
+DevTools listening on ws://127.0.0.1:51613/devtools/browser/275fa430-b4dc-43db-8092-4c8518ae420c
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.chess.com."
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.chess.com."
+1674420370776	Marionette	INFO	Stopped listening on port 35097

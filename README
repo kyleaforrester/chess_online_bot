@@ -1,7 +1,17 @@
 Automated Chess players for chess.com.
 
-Recommended crontab settings:
+Example crontab settings:
 
-*/18 * * * * cd /home/kyle/Code/shell_script/chess_online_bot/WatErbeverage; bash ./chess_move.sh >> /tmp/WatErbeverage.txt
-*/18 * * * * cd /home/kyle/Code/shell_script/chess_online_bot/Jaime_Lannister69; bash ./chess_move.sh >> /tmp/Jaime_Lannister69.txt
-*/18 * * * * cd /home/kyle/Code/shell_script/chess_online_bot/danmusil1; bash ./chess_move.sh >> /tmp/danmusil1.txt
+*/18 * * * * cd /home/kyle/Code/chess_online_bot; ./run.sh
+
+Dependencies:
+bash
+python3
+python3 venv in folder chess_online_bot/venv
+python3 requests (pip install requests)
+selenium python (pip install selenium)
+Firefox browser
+geckodriver in system PATH
+stockfish_15 in system PATH
+komodo (13 or 14 static eval) in system PATH
+ragnarook in system PATH
