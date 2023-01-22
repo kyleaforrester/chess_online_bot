@@ -74,12 +74,11 @@ def transfer_cookies(driver_cookies):
 
 
 def get_bestmove(game):
-    uci_cmd = '''setoption name Personality value Aggressive
-setoption name Skill value 12
+    uci_cmd = '''setoption name Level value 4
 position fen {}
 go movetime 1000\n'''.format(game[1])
 
-    proc = subprocess.Popen(['/usr/games/komodo'],
+    proc = subprocess.Popen(['/usr/games/demolito'],
                             stdin=PIPE, stdout=PIPE, text=True)
     proc.stdin.write(uci_cmd)
     proc.stdin.flush()
