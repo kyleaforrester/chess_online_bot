@@ -77,7 +77,7 @@ def get_bestmove(game):
     uci_cmd = '''position fen {}
 go nodes 1\n'''.format(game[1])
 
-    proc = subprocess.Popen(['stockfish_15'],
+    proc = subprocess.Popen(['/usr/games/stockfish_15'],
                             stdin=PIPE, stdout=PIPE, text=True)
     proc.stdin.write(uci_cmd)
     proc.stdin.flush()

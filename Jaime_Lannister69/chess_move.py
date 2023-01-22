@@ -79,7 +79,7 @@ setoption name Skill value 12
 position fen {}
 go movetime 1000\n'''.format(game[1])
 
-    proc = subprocess.Popen(['komodo'],
+    proc = subprocess.Popen(['/usr/games/komodo'],
                             stdin=PIPE, stdout=PIPE, text=True)
     proc.stdin.write(uci_cmd)
     proc.stdin.flush()

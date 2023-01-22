@@ -12,6 +12,6 @@ python3 requests (pip install requests)
 selenium python (pip install selenium)
 Firefox browser
 geckodriver in system PATH
-stockfish_15 in system PATH
-komodo (13 or 14 static eval) in system PATH
-ragnarook in system PATH
+stockfish_15 in /usr/games
+komodo (13 or 14 static eval) in /usr/games
+ragnarook in /usr/games
