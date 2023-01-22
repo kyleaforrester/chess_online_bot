@@ -75,7 +75,7 @@ def transfer_cookies(driver_cookies):
 
 def get_bestmove(game):
     uci_cmd = '''position fen {}
-go nodes 50000\n'''.format(game[1])
+go nodes 100000\n'''.format(game[1])
 
     proc = subprocess.Popen(['/usr/games/ragnarook'],
                             stdin=PIPE, stdout=PIPE, text=True)
