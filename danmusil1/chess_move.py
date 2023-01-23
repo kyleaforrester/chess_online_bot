@@ -74,10 +74,11 @@ def transfer_cookies(driver_cookies):
 
 
 def get_bestmove(game):
-    uci_cmd = '''position fen {}
-go nodes 100000\n'''.format(game[1])
+    uci_cmd = '''setoption name Backend value eigen
+position fen {}
+go nodes 1\n'''.format(game[1])
 
-    proc = subprocess.Popen(['/usr/games/ragnarook'],
+    proc = subprocess.Popen(['/usr/games/lc0', '-w', 'maia-1100.pb.gz'],
                             stdin=PIPE, stdout=PIPE, text=True)
     proc.stdin.write(uci_cmd)
     proc.stdin.flush()
