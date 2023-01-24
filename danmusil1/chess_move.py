@@ -138,3 +138,4 @@ for game in games_fens:
 
 
 driver.close()
+driver.quit()
