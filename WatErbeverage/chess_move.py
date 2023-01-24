@@ -74,8 +74,20 @@ def transfer_cookies(driver_cookies):
 
 
 def get_bestmove(game):
+    # If the opponent has only a king left, end the game quickly
+    fen = game[1].split()
+    nodes = 1
+    if fen[1] == 'w':
+        # I am white
+        if sum(1 for _ in filter(lambda x: x.islower(), fen[0])) == 1:
+            nodes = 10000
+    else:
+        # I am black
+        if sum(1 for _ in filter(lambda x: x.isupper(), fen[0])) == 1:
+            nodes = 10000
+
     uci_cmd = '''position fen {}
-go nodes 1\n'''.format(game[1])
+go nodes {}\n'''.format(game[1], nodes)
 
     proc = subprocess.Popen(['/usr/games/stockfish_15'],
                             stdin=PIPE, stdout=PIPE, text=True)
