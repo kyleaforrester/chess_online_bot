@@ -4,6 +4,8 @@ from selenium import webdriver
 from selenium.webdriver import FirefoxOptions
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 import time
 import json
@@ -74,9 +76,21 @@ def transfer_cookies(driver_cookies):
 
 
 def get_bestmove(game):
+    # If the opponent has only a king left, end the game quickly
+    fen = game[1].split()
+    nodes = 1
+    if fen[1] == 'w':
+        # I am white
+        if sum(1 for _ in filter(lambda x: x.islower(), fen[0])) == 1:
+            nodes = 100
+    else:
+        # I am black
+        if sum(1 for _ in filter(lambda x: x.isupper(), fen[0])) == 1:
+            nodes = 100
+
     uci_cmd = '''setoption name Backend value eigen
 position fen {}
-go nodes 1\n'''.format(game[1])
+go nodes {}\n'''.format(game[1], nodes)
 
     proc = subprocess.Popen(['/usr/games/lc0', '-w', '700024'],
                             stdin=PIPE, stdout=PIPE, text=True)
@@ -87,28 +101,37 @@ go nodes 1\n'''.format(game[1])
         if 'bestmove' in line:
             return line.split()[1]
 
-
 opts = FirefoxOptions()
 opts.add_argument("--headless")
 driver = webdriver.Firefox(options=opts)
-driver.get("https://www.chess.com/login_and_go?returnUrl=https://www.chess.com/")
-elem = driver.find_element(By.ID, "username")
-elem.clear()
-elem.send_keys("Jaime_Lannister69")
-elem = driver.find_element(By.ID, "password")
-elem.clear()
-elem.send_keys("jellybean!")
-elem.send_keys(Keys.RETURN)
+try:
+    driver.get("https://www.chess.com/login_and_go?returnUrl=https://www.chess.com/")
 
-time.sleep(1)
+    elem = WebDriverWait(driver, 5).until(
+        EC.presence_of_element_located((By.ID, "username"))
+    )
+    elem.clear()
+    elem.send_keys("Jaime_Lannister69")
 
-cookies = transfer_cookies(driver.get_cookies())
+    elem = WebDriverWait(driver, 5).until(
+        EC.presence_of_element_located((By.ID, "password"))
+    )
+    elem.clear()
+    elem.send_keys("jellybean!")
+    elem.send_keys(Keys.RETURN)
+
+    time.sleep(1)
+    cookies = transfer_cookies(driver.get_cookies())
+finally:
+    driver.quit()
+
 response = requests.get(
     'https://www.chess.com/callback/user/daily/games?limit=100', cookies=cookies)
 games_obj = json.loads(response.text)
 
 games_fens = [(game['id'], game['fen'])
               for game in games_obj['dailyGamesGrid'] if game['isMyTurnToMove'] == True]
+
 
 for game in games_fens:
     if random.randint(1, 10) > 1:
@@ -135,7 +158,3 @@ for game in games_fens:
         game[0]), 'Host': 'www.chess.com', 'Origin': 'https://www.chess.com', 'Alt-Used': 'www.chess.com'}
     response = requests.post('https://www.chess.com/callback/game/{}/submit-move'.format(
         game[0]), json=json_payload, headers=headers, cookies=cookies)
-
-
-driver.close()
-driver.quit()
