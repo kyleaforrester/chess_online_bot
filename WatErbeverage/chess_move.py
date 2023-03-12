@@ -13,6 +13,7 @@ import random
 import sys
 import subprocess
 import requests
+import os
 from subprocess import PIPE
 
 
@@ -102,7 +103,7 @@ go nodes {}\n'''.format(game[1], nodes)
 
 opts = FirefoxOptions()
 opts.add_argument("--headless")
-driver = webdriver.Firefox(options=opts)
+driver = webdriver.Firefox(options=opts, service_log_path=os.devnull)
 try:
     driver.get("https://www.chess.com/login_and_go?returnUrl=https://www.chess.com/")
 
