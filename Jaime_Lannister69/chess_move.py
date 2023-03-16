@@ -93,7 +93,9 @@ def get_bestmove(game):
 position fen {}
 go nodes {}\n'''.format(game[1], nodes)
 
-    proc = subprocess.Popen(['/usr/games/lc0', '-w', '700142'],
+    network = random.choice(['700150', '700200', '700250'])
+
+    proc = subprocess.Popen(['/usr/games/lc0', '-w', network],
                             stdin=PIPE, stdout=PIPE, text=True)
     proc.stdin.write(uci_cmd)
     proc.stdin.flush()
