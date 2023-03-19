@@ -10,3 +10,6 @@ python3 chess_move.py
 
 cd ../danmusil1
 python3 chess_move.py
+
+cd ../MemoryOfMaelstrom
+python3 chess_move.py
