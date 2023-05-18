@@ -77,26 +77,33 @@ def transfer_cookies(driver_cookies):
 
 
 def get_bestmove(game):
-    # If the opponent has only a king left, end the game quickly
+    # If the opponent has only a king and pawns left, end the game quickly
     fen = game[1].split()
-    nodes = 1
+    endgame = False
     if fen[1] == 'w':
         # I am white
-        if sum(1 for _ in filter(lambda x: x.islower(), fen[0])) == 1:
-            nodes = 100
+        if len(list(filter(lambda x: x in ('q', 'r', 'b', 'n'), fen[0]))) == 0:
+            endgame = True
     else:
         # I am black
-        if sum(1 for _ in filter(lambda x: x.isupper(), fen[0])) == 1:
-            nodes = 100
+        if len(list(filter(lambda x: x in ('Q', 'R', 'B', 'N'), fen[0]))) == 0:
+            endgame = True
 
-    uci_cmd = '''setoption name Backend value eigen
+    if endgame == True:
+        uci_cmd = '''position fen {}
+go depth 4\n'''.format(game[1])
+        proc = subprocess.Popen(['/usr/games/stockfish_11'],
+                                stdin=PIPE, stdout=PIPE, text=True)
+        print('Endgame is true, using stockfish_11 at depth 4')
+
+    else:
+        uci_cmd = '''setoption name Backend value eigen
 position fen {}
-go nodes {}\n'''.format(game[1], nodes)
+go nodes 1\n'''.format(game[1])
+        network = random.choice(['700150', '700200', '700250'])
+        proc = subprocess.Popen(['/usr/games/lc0', '-w', network],
+                                stdin=PIPE, stdout=PIPE, text=True)
 
-    network = random.choice(['700150', '700200', '700250'])
-
-    proc = subprocess.Popen(['/usr/games/lc0', '-w', network],
-                            stdin=PIPE, stdout=PIPE, text=True)
     proc.stdin.write(uci_cmd)
     proc.stdin.flush()
 
