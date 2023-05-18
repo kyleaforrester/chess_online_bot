@@ -77,23 +77,29 @@ def transfer_cookies(driver_cookies):
 
 
 def get_bestmove(game):
-    # If the opponent has only a king left, end the game quickly
+    # If the opponent has only a king and pawns left, end the game quickly
     fen = game[1].split()
-    depth = 1
+    endgame = False
     if fen[1] == 'w':
         # I am white
-        if sum(1 for _ in filter(lambda x: x.islower(), fen[0])) == 1:
-            depth = 8
+        if len(list(filter(lambda x: x in ('q', 'r', 'b', 'n'), fen[0]))) == 0:
+            endgame = True
     else:
         # I am black
-        if sum(1 for _ in filter(lambda x: x.isupper(), fen[0])) == 1:
-            depth = 8
+        if len(list(filter(lambda x: x in ('Q', 'R', 'B', 'N'), fen[0]))) == 0:
+            endgame = True
+
+    if endgame == True:
+        depth = 4
+        stockfish = 'stockfish_11'
+    else:
+        depth = 1
+        stockfish = random.choice(['stockfish_14', 'stockfish_14.1', 'stockfish_15', 'stockfish_15.1'])
+
+    print('Using {} at depth {}'.format(stockfish, depth))
 
     uci_cmd = '''position fen {}
 go depth {}\n'''.format(game[1], depth)
-
-    stockfish = random.choice(['stockfish_14', 'stockfish_14.1', 'stockfish_15', 'stockfish_15.1'])
-    print('Using {}'.format(stockfish))
 
     proc = subprocess.Popen(['/usr/games/' + stockfish],
                             stdin=PIPE, stdout=PIPE, text=True)
