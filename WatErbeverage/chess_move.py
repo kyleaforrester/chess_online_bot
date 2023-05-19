@@ -90,7 +90,7 @@ def get_bestmove(game):
             endgame = True
 
     if endgame == True:
-        depth = 4
+        depth = 8
         stockfish = 'stockfish_11'
     else:
         depth = 1

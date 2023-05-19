@@ -91,10 +91,10 @@ def get_bestmove(game):
 
     if endgame == True:
         uci_cmd = '''position fen {}
-go depth 4\n'''.format(game[1])
+go depth 8\n'''.format(game[1])
         proc = subprocess.Popen(['/usr/games/stockfish_11'],
                                 stdin=PIPE, stdout=PIPE, text=True)
-        print('Endgame is true, using stockfish_11 at depth 4')
+        print('Endgame is true, using stockfish_11 at depth 8')
 
     else:
         uci_cmd = '''setoption name Backend value eigen
