@@ -14,6 +14,7 @@ import sys
 import subprocess
 import requests
 import os
+import re
 from subprocess import PIPE
 
 
@@ -77,38 +78,28 @@ def transfer_cookies(driver_cookies):
 
 
 def get_bestmove(game):
-    # If the opponent has only a king and pawns left, end the game quickly
-    fen = game[1].split()
-    endgame = False
-    if fen[1] == 'w':
-        # I am white
-        if len(list(filter(lambda x: x in ('q', 'r', 'b', 'n'), fen[0]))) == 0:
-            endgame = True
-    else:
-        # I am black
-        if len(list(filter(lambda x: x in ('Q', 'R', 'B', 'N'), fen[0]))) == 0:
-            endgame = True
-
-    if endgame == True:
-        depth = 8
-        stockfish = 'stockfish_11'
-    else:
-        depth = 1
-        stockfish = random.choice(['stockfish_14', 'stockfish_14.1', 'stockfish_15', 'stockfish_15.1'])
-
-    print('Using {} at depth {}'.format(stockfish, depth))
-
     uci_cmd = '''position fen {}
-go depth {}\n'''.format(game[1], depth)
+go depth 10\n'''.format(game[1])
 
-    proc = subprocess.Popen(['/usr/games/' + stockfish],
+    proc = subprocess.Popen(['/usr/games/stockfish_11'],
                             stdin=PIPE, stdout=PIPE, text=True)
     proc.stdin.write(uci_cmd)
     proc.stdin.flush()
 
+    output = []
     for line in iter(proc.stdout.readline, ''):
+        output.append(line)
         if 'bestmove' in line:
-            return line.split()[1]
+            break
+
+    moves = set()
+    for line in list(filter(lambda x: ' depth ' in x, output))[1:]:
+        match = re.search(' pv ([a-z0-9]*) ', line)
+        moves.add(match.group(1))
+
+    print('Candidate moves: {}'.format(moves))
+    return random.choice(list(moves))
+
 
 opts = FirefoxOptions()
 opts.add_argument("--headless")
