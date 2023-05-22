@@ -94,7 +94,7 @@ go depth 10\n'''.format(game[1])
 
     moves = set()
     for line in list(filter(lambda x: ' depth ' in x, output))[1:]:
-        match = re.search(' pv ([a-z0-9]*) ', line)
+        match = re.search(' pv ([a-z0-9]*)', line)
         moves.add(match.group(1))
 
     print('Candidate moves: {}'.format(moves))
