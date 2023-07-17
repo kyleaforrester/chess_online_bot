@@ -93,7 +93,7 @@ go depth 10\n'''.format(game[1])
             break
 
     moves = set()
-    for line in list(filter(lambda x: ' depth ' in x, output))[1:]:
+    for line in list(filter(lambda x: ' depth ' in x, output))[2:]:
         match = re.search(' pv ([a-z0-9]*)', line)
         moves.add(match.group(1))
 
