@@ -79,7 +79,7 @@ def transfer_cookies(driver_cookies):
 
 def get_bestmove(game):
     uci_cmd = '''position fen {}
-go depth 10\n'''.format(game[1])
+go depth 12\n'''.format(game[1])
 
     proc = subprocess.Popen(['/usr/games/stockfish_11'],
                             stdin=PIPE, stdout=PIPE, text=True)
@@ -93,7 +93,7 @@ go depth 10\n'''.format(game[1])
             break
 
     moves = set()
-    for line in list(filter(lambda x: ' depth ' in x, output))[2:]:
+    for line in list(filter(lambda x: ' depth ' in x, output))[3:]:
         match = re.search(' pv ([a-z0-9]*)', line)
         moves.add(match.group(1))
 
