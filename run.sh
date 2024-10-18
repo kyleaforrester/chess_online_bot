@@ -2,14 +2,26 @@
 
 source venv/bin/activate
 
-cd Jaime_Lannister69
-python3 chess_move.py
+if [ $((RANDOM % 100)) -lt 5 ]; then
+    cd Jaime_Lannister69
+    python3 chess_move.py
+    cd ..
+fi
 
-cd ../WatErbeverage
-python3 chess_move.py
+if [ $((RANDOM % 100)) -lt 5 ]; then
+    cd WatErbeverage
+    python3 chess_move.py
+    cd ..
+fi
 
-cd ../danmusil1
-python3 chess_move.py
+if [ $((RANDOM % 100)) -lt 5 ]; then
+    cd danmusil1
+    python3 chess_move.py
+    cd ..
+fi
 
-cd ../MemoryOfMaelstrom
-python3 chess_move.py
+if [ $((RANDOM % 100)) -lt 5 ]; then
+    cd MemoryOfMaelstrom
+    python3 chess_move.py
+    cd ..
+fi

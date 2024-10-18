@@ -134,10 +134,6 @@ games_fens = [(game['id'], game['fen'])
 
 
 for game in games_fens:
-    if random.randint(1, 10) > 1:
-        print('Skipping game {}'.format(game))
-        continue
-
     bestmove = ''
     if (game[1] is not None):
         bestmove = get_bestmove(game)
