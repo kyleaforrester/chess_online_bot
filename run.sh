@@ -25,3 +25,9 @@ if [ $((RANDOM % 100)) -lt 1 ]; then
     python3 chess_move.py
     cd ..
 fi
+
+if [ $((RANDOM % 100)) -lt 1 ]; then
+    cd Forkwith
+    python3 chess_move.py
+    cd ..
+fi
