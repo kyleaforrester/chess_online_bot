@@ -103,7 +103,7 @@ go nodes {}\n'''.format(game[1], nodes)
             return line.split()[1]
 
 opts = FirefoxOptions()
-#opts.add_argument("--headless")
+opts.add_argument("--headless")
 driver = webdriver.Firefox(options=opts, service_log_path=os.devnull)
 try:
     driver.get("https://www.chess.com/login_and_go?returnUrl=https://www.chess.com/")
