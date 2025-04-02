@@ -118,13 +118,13 @@ try:
     driver.get("https://www.chess.com/login_and_go?returnUrl=https://www.chess.com/")
 
     elem = WebDriverWait(driver, 5).until(
-        EC.presence_of_element_located((By.XPATH, "//form[@id='authentication-login-form']/div[2]/div[1]/div[1]/input[1]"))
+        EC.presence_of_element_located((By.XPATH, "//form[@id='authentication-login-form']/div[@id='username-input-field-container']/div[1]/div[1]/input[1]"))
     )
     elem.clear()
     elem.send_keys("Jaime_Lannister69")
 
     elem = WebDriverWait(driver, 5).until(
-        EC.presence_of_element_located((By.XPATH, "//form[@id='authentication-login-form']/div[3]/div[1]/div[1]/input[1]"))
+        EC.presence_of_element_located((By.XPATH, "//form[@id='authentication-login-form']/div[@id='password-input-field-container']/div[1]/div[1]/input[1]"))
     )
     elem.clear()
     elem.send_keys("jellybean!")
