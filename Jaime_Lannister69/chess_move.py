@@ -97,9 +97,17 @@ go depth 8\n'''.format(game[1])
         print('Endgame is true, using stockfish_11 at depth 8')
 
     else:
+        # Play stronger depending on how many minor/major pieces are missing from our board
+        if fen[1] == 'w':
+            # I am white
+            missing_pieces = max(7 - len(list(filter(lambda x: x in ('Q', 'R', 'B', 'N'), fen[0]))), 0)
+        else:
+            # I am black
+            missing_pieces = max(7 - len(list(filter(lambda x: x in ('q', 'r', 'b', 'n'), fen[0]))), 0)
+        nodes = 2**missing_pieces
         uci_cmd = '''setoption name Backend value eigen
 position fen {}
-go nodes 1\n'''.format(game[1])
+go nodes {}\n'''.format(game[1], nodes)
         network = random.choice(['700150', '700200', '700250'])
         proc = subprocess.Popen(['/usr/games/lc0', '-w', network],
                                 stdin=PIPE, stdout=PIPE, text=True)
