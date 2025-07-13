@@ -79,28 +79,48 @@ def transfer_cookies(driver_cookies):
 def get_bestmove(game):
     # If the opponent has only a king left, end the game quickly
     fen = game[1].split()
-    nodes = random.choice([16,256,4096])
+    nodes = 1024
     if fen[1] == 'w':
         # I am white
         if sum(1 for _ in filter(lambda x: x.islower(), fen[0])) == 1:
-            nodes = 10000
+            nodes = 1024
     else:
         # I am black
         if sum(1 for _ in filter(lambda x: x.isupper(), fen[0])) == 1:
-            nodes = 10000
+            nodes = 1024
 
-    uci_cmd = '''setoption name Contempt value 100
+    uci_cmd = '''setoption name MultiPV value 3
 position fen {}
 go nodes {}\n'''.format(game[1], nodes)
 
-    proc = subprocess.Popen(['/usr/games/Winter'],
+    proc = subprocess.Popen(['/usr/games/stockfish_11'],
                             stdin=PIPE, stdout=PIPE, text=True)
     proc.stdin.write(uci_cmd)
     proc.stdin.flush()
 
+    pvs = {}
+    bestmove = ''
+    mate = False
     for line in iter(proc.stdout.readline, ''):
+        if 'info depth ' in line:
+            split_line = line.split()
+            multipv = int(split_line[split_line.index('multipv') + 1])
+            if ' mate ' in line:
+                mate = True
+            else:
+                cp = int(split_line[split_line.index('cp') + 1])
+                blurred_cp = cp + random.randint(-100,100)
+                pv = split_line[split_line.index('pv') + 1]
+                pvs[multipv] = (cp, blurred_cp, pv)
         if 'bestmove' in line:
-            return line.split()[1]
+            bestmove = line.split()[1]
+            break
+
+    if mate:
+        return bestmove
+
+    pv_values = sorted(list(pvs.values()), key=lambda x: x[1])
+    return pv_values[-1][2]
 
 opts = FirefoxOptions()
 opts.add_argument("--headless")
