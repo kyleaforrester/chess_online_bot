@@ -79,15 +79,15 @@ def transfer_cookies(driver_cookies):
 def get_bestmove(game):
     # If the opponent has only a king left, end the game quickly
     fen = game[1].split()
-    nodes = 1024
+    nodes = 2048
     if fen[1] == 'w':
         # I am white
         if sum(1 for _ in filter(lambda x: x.islower(), fen[0])) == 1:
-            nodes = 1024
+            pass
     else:
         # I am black
         if sum(1 for _ in filter(lambda x: x.isupper(), fen[0])) == 1:
-            nodes = 1024
+            pass
 
     uci_cmd = '''setoption name MultiPV value 3
 position fen {}
