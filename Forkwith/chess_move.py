@@ -79,7 +79,7 @@ def transfer_cookies(driver_cookies):
 def get_bestmove(game):
     # If the opponent has only a king left, end the game quickly
     fen = game[1].split()
-    nodes = 2048
+    nodes = 4096
     if fen[1] == 'w':
         # I am white
         if sum(1 for _ in filter(lambda x: x.islower(), fen[0])) == 1:
