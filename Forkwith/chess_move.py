@@ -16,6 +16,11 @@ import requests
 import os
 from subprocess import PIPE
 
+def challenge_new_opponent(cookies):
+    json_payload = {"daysPerMove":3,"gameType":"chess","isRated":1,"maxRatingDelta":None,"minRatingDelta":100,"minRequiredGameCount":0,"takeback":"0"}
+
+    response = requests.post('https://www.chess.com/callback/game/random/daily/challenge', json=json_payload, cookies=cookies)
+    print(json.loads(response.text))
 
 def encode_move(move):
     # TCN (Two Character Notation) is quite simple.
@@ -145,6 +150,8 @@ try:
     cookies = transfer_cookies(driver.get_cookies())
 finally:
     driver.quit()
+
+challenge_new_opponent(cookies)
 
 response = requests.get(
     'https://www.chess.com/callback/user/daily/games?limit=100', cookies=cookies)
