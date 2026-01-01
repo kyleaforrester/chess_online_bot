@@ -151,7 +151,8 @@ try:
 finally:
     driver.quit()
 
-challenge_new_opponent(cookies)
+if random.random() < 0.1:
+    challenge_new_opponent(cookies)
 
 response = requests.get(
     'https://www.chess.com/callback/user/daily/games?limit=100', cookies=cookies)
