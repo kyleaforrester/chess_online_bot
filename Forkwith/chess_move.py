@@ -114,7 +114,7 @@ go nodes {}\n'''.format(game[1], nodes)
                 mate = True
             else:
                 cp = int(split_line[split_line.index('cp') + 1])
-                blurred_cp = cp + random.randint(-100,100)
+                blurred_cp = cp + random.randint(-50,50)
                 pv = split_line[split_line.index('pv') + 1]
                 pvs[multipv] = (cp, blurred_cp, pv)
         if 'bestmove' in line:
@@ -151,7 +151,7 @@ try:
 finally:
     driver.quit()
 
-if random.random() < 0.1:
+if random.random() < 0.2:
     challenge_new_opponent(cookies)
 
 response = requests.get(

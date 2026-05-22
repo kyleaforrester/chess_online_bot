@@ -131,7 +131,7 @@ try:
 finally:
     driver.quit()
 
-if random.random() < 0.1:
+if random.random() < 0.2:
     challenge_new_opponent(cookies)
 
 response = requests.get(
